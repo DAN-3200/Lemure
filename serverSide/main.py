@@ -6,6 +6,6 @@ app = Flask(__name__)
 
 # - Import Routes 
 from routes import (
-    toDo, # C.R.U.D toDo conectado com UI React.js
+    toDo, # C.R.U.D toDo conectado com UI React.js por meio de Fetch
 )
  

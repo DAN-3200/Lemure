@@ -7,6 +7,6 @@ from flask import (
 from main import app
 
 # --- C.R.U.D 
-@app.route('/')
-def main():
-    return render_template('index.html')
+@app.route('/create' methods=['GET', 'POST'])
+def create():
+    return { 'projeto' : 'Flask-React' }

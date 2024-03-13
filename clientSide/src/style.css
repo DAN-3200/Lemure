@@ -1,0 +1,168 @@
+/* Adotar o estilo de declaração 'camelCase' */
+
+.wall *{
+	font-family: "Poppins", sans-serif;
+}
+
+.wall{
+	height: 600px;
+	width: 500px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.inputCard{
+	min-height: 150px;
+	max-height: 200px;
+	padding: 10px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+
+	background-color: white;
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+	
+}
+
+.inputCard #dataTitle{
+	height: 25px;
+	padding: 0px 5px;
+	outline: none;
+	border: none;
+	border-radius: 2.5px;
+}
+
+.inputCard #dataContent{
+	height: 100%;
+	outline: none;
+	padding: 5px;
+	border: 1px solid #A5A9B4;
+	border-radius: 5px;
+
+	resize:none;
+}
+
+.inputCard button{
+	height: 35px;
+	color: white;
+	background-color: #FA5F55;
+	border:none;
+	border-radius: 3px;
+	cursor: pointer;
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+
+.inputCard button:active{
+	background-color: #E3735E;
+	box-shadow: none;
+	transform: translateY(2px);
+	
+}
+
+.fieldCards{
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	overflow: auto;
+
+	scrollbar-width: thin;          /* "auto" or "thin" */
+	scrollbar-color: silver;
+
+}
+
+
+.card{
+	display: grid;
+	grid-auto-rows: 30px 1fr auto;
+	
+	background-color: white;
+	height: 160px;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+	
+}
+
+.cardTitle {
+	background-color: #3783ff;
+	padding: 5px 10px;
+	
+	display: grid;
+	place-items: center;
+	box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+}
+
+.cardTitle input{
+	color: white;
+	background: transparent;
+	width: 100%;
+	border: none;
+	outline: none;
+}
+
+.cardContent {
+	padding: 5px;
+	display: grid;
+}
+
+.cardContent textarea{
+	resize: none;
+	border: none;
+	padding: 5px;
+	background: transparent;
+	border-bottom: 1px solid silver;
+	border-top: 1px solid silver;
+	outline: none;
+}
+
+.cardTools{
+	padding: 0px 10px 10px 10px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	justify-content: flex-end;
+}
+.cardTools p{
+	font-size: 10px;
+	color: silver;
+}
+
+.cardTools .saved{
+	animation: blink 2s;
+}
+
+@keyframes blink {
+	from {
+		color: green;
+		transform: scale(1.5);
+	} to {}
+}
+
+.cardTools button{
+	cursor: pointer;
+	background: transparent;
+	border-radius: 5px;
+	padding: 0px 5px;
+	height: 25px;
+}
+
+.cardTools .btSave{
+	border: 1px solid green;
+	color: green;
+}
+
+.cardTools .btDelete{
+	border: 1px solid red;
+	color: red;
+}
+
+.cardTools button:active{
+	transform: translateY(2px);
+}
+
+
+
+/* -- Imports (Coloca tudo lá em baixo) */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu+Mono&display=swap')
