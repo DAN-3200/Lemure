@@ -2,16 +2,41 @@
 import { useState } from 'react'
 import './style.css'
 
-// Ou uso fetch() ou Axios
+/* Ou uso fetch() ou Axios
+	fetch('url',{...}).then(function(response){});
+*/
+function Exchange (dict, url){
+	return new Promise(() => fetch(url, {
+			method : 'POST',
+			credentials : 'include',
+			body : JSON.stringify(dict),
+			cache : 'no-cache',
+			headers : new Headers({
+				"content-type" : "application/json"
+			})
+		}).then((response) =>{
+			if (response.status !== 200){
+				console.log("dado instável")
+				return;
+			}
+			return response.json();
+		}).then(
+			(newData) => {
+				console.log(newData)
+		})
+	)
+}
+
 export default function App(){
 	const [DB, setDB] = useState([])
 	const [count, setCount] = useState(1)
-	
+
 	const TakeData = () => {
 		const title = document.getElementById('dataTitle')
 		const content = document.getElementById('dataContent')
 
-		if (title.value.length != 0 && content.value.length != 0)	{
+		if (title.value.length !== 0 && content.value.length !== 0){
+			console.log(Exchange({title : 'ativado!'}, 'http://localhost:5000/create'))
 			setDB([...DB, {
 				id : count,
 				title: title.value,
@@ -49,13 +74,13 @@ function Card(props){
 	const [content, setContent] = useState(props.item.content)
 	
 	const Delete = (id) => {
-		props.setDB(props.DB.filter((item) => item.id != id ? true : false))
+		props.setDB(props.DB.filter((item) => item.id !== id ? true : false))
 	}
 
 	const [blink, setBlink] = useState(false)
 	const Update = (id) =>{
 		const p = props.DB.map((task) => {
-			if(task.id == id){
+			if(task.id === id){
 				return {...task, title : title, content : content}
 			}else{
 				return task
