@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import './style.css'
 
-
+// Ou uso fetch() ou Axios
 export default function App(){
 	const [DB, setDB] = useState([])
 	const [count, setCount] = useState(1)

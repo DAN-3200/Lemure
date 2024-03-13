@@ -7,6 +7,7 @@ from flask import (
 from main import app
 
 # --- C.R.U.D 
-@app.route('/create' methods=['GET', 'POST'])
+@app.route('/')
+@app.route('/create', methods=['GET', 'POST'])
 def create():
-    return { 'projeto' : 'Flask-React' }
+    return make_response(jsonify({ 'projeto' : 'Flask-React' }))
