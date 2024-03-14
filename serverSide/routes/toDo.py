@@ -12,7 +12,9 @@ import random
 @app.route('/create', methods=['POST']) # rota a qual será passada os dados, ela terá a propriedade 'POST'
 def create():
     data = request.get_json() # pegar os dados JSON que são passados pela rota
+
     print(data)
+    
     return make_response(jsonify({'title': "flask-API", 'content' : random.randint(1,10) }), 200) 
     # make_response - formula uma resposta com status 
     # jsonify - formata array em JSON para poder ser enviado

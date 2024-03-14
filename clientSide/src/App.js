@@ -5,8 +5,8 @@ import './style.css'
 /* Ou uso fetch() ou Axios
 	fetch('url',{...}).then(function(response){});
 */
-function Exchange (dict, url){
-	return new Promise(() => fetch(url, {
+async function Exchange (dict, url){
+	return new Promise((resolve, reject) => fetch(url, {
 			method : 'POST',
 			credentials : 'include',
 			body : JSON.stringify(dict),
@@ -22,34 +22,43 @@ function Exchange (dict, url){
 			return response.json();
 		}).then(
 			(newData) => {
-				console.log(newData)
-		})
+				console.log("res:", newData)
+				return resolve(newData)
+		}).catch((error)=>
+			reject(error)
+		)
 	)
 }
 
+// -- Função principal
 export default function App(){
 	const [DB, setDB] = useState([])
 	const [count, setCount] = useState(1)
+	const [view, setView] = useState('vazio')
 
-	const TakeData = () => {
+	const TakeData = async () => {
 		const title = document.getElementById('dataTitle')
 		const content = document.getElementById('dataContent')
 
 		if (title.value.length !== 0 && content.value.length !== 0){
-			console.log(Exchange({title : 'ativado!'}, 'http://localhost:5000/create'))
 			setDB([...DB, {
 				id : count,
 				title: title.value,
 				content : content.value 
 			}])
 			setCount(count + 1)
-			
+
 			title.value = ''
 			content.value = ''
+
+			// testando
+			const valor = await Exchange({title : title.value, content : content.value}, 'http://localhost:5000/create')
+			setView(valor.title + ":" + valor.content)
 		} else {
 			alert("Preencha todos os campos")
 
 		}
+		
 	}
 
 	return(<>
@@ -59,7 +68,7 @@ export default function App(){
 				<textarea id="dataContent" placeholder='Content'></textarea>
 				<button onClick={TakeData}>Criar</button>
 			</div>
-	
+			<p style={{color: 'white'}}>{view}</p>
 			<div className="fieldCards">
 				{DB.map((item) => (
 					<Card DB={DB} setDB={setDB} item={item} key={item.id} />
@@ -68,7 +77,7 @@ export default function App(){
 		</div>
 	</>)
 }
-
+// -- Card componente
 function Card(props){
 	const [title, setTitle] = useState(props.item.title)
 	const [content, setContent] = useState(props.item.content)
