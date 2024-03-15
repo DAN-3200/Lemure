@@ -33,8 +33,7 @@ export default function App(){
 	const [DB, setDB] = useState([])
 	const [count, setCount] = useState(1)
 	const [view, setView] = useState('vazio')
-
-
+	
 	const TakeData = async () => {
 		const title = document.getElementById('dataTitle')
 		const content = document.getElementById('dataContent')
@@ -58,6 +57,23 @@ export default function App(){
 			alert("Preencha todos os campos")
 		}
 	}
+
+
+	fetch('http://localhost:5000/create', {
+		method : 'POST',
+		credentials : 'include',
+		body : JSON.stringify({title : 'useEffectado!!'}),
+		cache : 'no-cache',
+		headers : new Headers({
+			"content-type" : "application/json"
+		})
+	}).then((resp) =>{ 
+		resp.json()
+	}).then((obj) =>{
+		console.log(obj)
+	}).catch((error)=>
+		error
+	)
 
 	return(<>
 		<div className="wall">
