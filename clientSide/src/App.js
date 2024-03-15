@@ -1,11 +1,11 @@
 //-- Imports 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './style.css'
 
 /* Ou uso fetch() ou Axios
 	fetch('url',{...}).then(function(response){});
 */
-async function Exchange (dict, url){
+async function Exchange(dict, url){
 	return new Promise((resolve, reject) => fetch(url, {
 			method : 'POST',
 			credentials : 'include',
@@ -14,15 +14,13 @@ async function Exchange (dict, url){
 			headers : new Headers({
 				"content-type" : "application/json"
 			})
-		}).then((response) =>{
+		}).then((response) => {
 			if (response.status !== 200){
 				console.log("dado instável")
 				return;
 			}
 			return response.json();
-		}).then(
-			(newData) => {
-				console.log("res:", newData)
+		}).then((newData) => {
 				return resolve(newData)
 		}).catch((error)=>
 			reject(error)
@@ -36,6 +34,7 @@ export default function App(){
 	const [count, setCount] = useState(1)
 	const [view, setView] = useState('vazio')
 
+
 	const TakeData = async () => {
 		const title = document.getElementById('dataTitle')
 		const content = document.getElementById('dataContent')
@@ -48,17 +47,16 @@ export default function App(){
 			}])
 			setCount(count + 1)
 
-			title.value = ''
-			content.value = ''
-
 			// testando
 			const valor = await Exchange({title : title.value, content : content.value}, 'http://localhost:5000/create')
+			console.log("s:",valor)
 			setView(valor.title + ":" + valor.content)
+
+			title.value = ''
+			content.value = ''
 		} else {
 			alert("Preencha todos os campos")
-
 		}
-		
 	}
 
 	return(<>
@@ -95,9 +93,19 @@ function Card(props){
 				return task
 			}
 		})
-		setBlink(!blink)
+		setBlink(true)
 		props.setDB(p)
 	}
+
+	useEffect(() => {
+		async function blinkDaley() {
+		  await new Promise((resolve) => setTimeout(resolve, 2*1000));
+		  setBlink(false);
+		}
+		
+		blinkDaley();
+	}, [blink]);
+	  
 	
 	return (<>
 		<div key={props.item.id} className='card'> 
@@ -116,3 +124,4 @@ function Card(props){
 		</div>
 	</>);
 }
+
