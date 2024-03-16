@@ -48,7 +48,7 @@ export default function App(){
 
 			// testando
 			const valor = await Exchange({title : title.value, content : content.value}, 'http://localhost:5000/create')
-			console.log("s:",valor)
+			console.log("retorno da API:",valor)
 			setView(valor.title + ":" + valor.content)
 
 			title.value = ''
@@ -58,22 +58,14 @@ export default function App(){
 		}
 	}
 
-
-	fetch('http://localhost:5000/create', {
-		method : 'POST',
-		credentials : 'include',
-		body : JSON.stringify({title : 'useEffectado!!'}),
-		cache : 'no-cache',
-		headers : new Headers({
-			"content-type" : "application/json"
-		})
-	}).then((resp) =>{ 
-		resp.json()
-	}).then((obj) =>{
-		console.log(obj)
-	}).catch((error)=>
-		error
-	)
+	useEffect(() =>{
+		const x = async() =>{ 
+			const y = await Exchange({title : "pq tá funcionando agora?"}, 'http://localhost:5000/create')
+			console.log(`y: ${y.content}`)
+		}
+		
+		x()
+	},[DB])
 
 	return(<>
 		<div className="wall">
