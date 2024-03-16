@@ -4,7 +4,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-# Instalar um tal de CORS
+# flask_restx [api]
 
 # --- Definições do App 
 app = Flask(__name__)
