@@ -5,7 +5,7 @@ import './style.css'
 /* Ou uso fetch() ou Axios
 	fetch('url',{...}).then(function(response){});
 */
-async function Exchange(dict, url){
+function Exchange(dict, url){
 	return new Promise((resolve, reject) => fetch(url, {
 			method : 'POST',
 			credentials : 'include',
@@ -31,25 +31,31 @@ async function Exchange(dict, url){
 // -- Função principal
 export default function App(){
 	const [DB, setDB] = useState([])
-	const [count, setCount] = useState(1)
 	const [view, setView] = useState('vazio')
-	
+
+	// Pegar todos dados do API: uma única vez 
+	useEffect(() =>{
+		try {
+			const x = async () =>{
+				const resp = await (await fetch('http://localhost:5000/read')).json()
+				setDB([...DB, ...resp])	
+				console.log(resp)
+			} 
+			x()
+		} catch (error) {
+			console.log(`Error: ${error}`)
+		}
+	},[]) 
+
 	const TakeData = async () => {
 		const title = document.getElementById('dataTitle')
 		const content = document.getElementById('dataContent')
 
 		if (title.value.length !== 0 && content.value.length !== 0){
-			setDB([...DB, {
-				id : count,
-				title: title.value,
-				content : content.value 
-			}])
-			setCount(count + 1)
-
-			// testando
+			// Conexão com API
 			const valor = await Exchange({title : title.value, content : content.value}, 'http://localhost:5000/create')
-			console.log("retorno da API:",valor)
-			setView(valor.title + ":" + valor.content)
+			setView(`PyBanco : Title ${valor.title}, Content  ${valor.content}`)
+			setDB([...DB, valor])
 
 			title.value = ''
 			content.value = ''
@@ -57,15 +63,6 @@ export default function App(){
 			alert("Preencha todos os campos")
 		}
 	}
-
-	useEffect(() =>{
-		const x = async() =>{ 
-			const y = await Exchange({title : "pq tá funcionando agora?"}, 'http://localhost:5000/create')
-			console.log(`y: ${y.content}`)
-		}
-		
-		x()
-	},[DB])
 
 	return(<>
 		<div className="wall">
@@ -76,13 +73,14 @@ export default function App(){
 			</div>
 			<p style={{color: 'white'}}>{view}</p>
 			<div className="fieldCards">
-				{DB.map((item) => (
-					<Card DB={DB} setDB={setDB} item={item} key={item.id} />
+				{DB.map((item, index) => (
+					<Card DB={DB} setDB={setDB} item={item} key={index} />
 				))}
 			</div>
 		</div>
 	</>)
 }
+
 // -- Card componente
 function Card(props){
 	const [title, setTitle] = useState(props.item.title)
