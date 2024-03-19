@@ -8,7 +8,7 @@ from flask_restx import Api, Namespace, Resource
 
 # --- Definições do App 
 app = Flask(__name__)
-api = Api(app, title='API flask')
+api = Api(app, title='Py Smart-API', description='Simples API flask')
 CORS(app, supports_credentials=True) # Isto permiti a solicitação entre apps de domínios diferentes 
 
 """

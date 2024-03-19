@@ -20,10 +20,18 @@ api.add_namespace(ns)
 # --- C.R.U.D 
 banco = [{'title':'restx', 'content': 'restx'}]
 
+modelBank = api.model('Banco',{
+    'title' : fields.String(description='Título'),
+    'content' : fields.String(description='Conteúdo')
+})
+
 @ns.route('/cards')
 class test(Resource):
-    # @api.expect('') - estabelece um modelo de entradada
-    # @api.marshal_with('') - estabelece um modelo de retorno
+    #@api.expect('') - estabelece um modelo de entradada
+    #@api.marshal_with('') - estabelece um modelo de retorno
+
+    
+    @ns.marshal_with(modelBank)
     def get(self):
         return banco
     
