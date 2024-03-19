@@ -4,15 +4,20 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from flask_restx import Api, Namespace
+from flask_restx import Api, Namespace, Resource
 
 # --- Definições do App 
 app = Flask(__name__)
-api = Api(app)
+api = Api(app, title='API flask')
 CORS(app, supports_credentials=True) # Isto permiti a solicitação entre apps de domínios diferentes 
 
-ns = Namespace('flask')
-api.add_namespace(ns)
+"""
+@api.route('') - estabelece o namespace padrão da API
+    @api.route('/default')
+    class base(Resource):
+        def get():
+            return 'Padrão da API'
+"""
 
 # - Import Routes 
 from routes import (

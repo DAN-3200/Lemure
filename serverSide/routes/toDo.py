@@ -10,18 +10,33 @@ from flask_restx import ( # Suporte para criação de APIs RESTful
 )
 from main import ( 
     app, # raiz da aplicação
-    api,
-    ns
+    api, # raiz da API RESTful
 )
 import random
 
-# --- C.R.U.D 
-banco = [{'title':'backEnd', 'content': 'backEnd'}]
+ns = Namespace('toDo', description='CRUD')
+api.add_namespace(ns)
 
-@ns.route('/pop', methods=['GET'])
+# --- C.R.U.D 
+banco = [{'title':'restx', 'content': 'restx'}]
+
+@ns.route('/cards')
 class test(Resource):
+    # @api.expect('') - estabelece um modelo de entradada
+    # @api.marshal_with('') - estabelece um modelo de retorno
     def get(self):
         return banco
+    
+    def post(self):
+        print(ns.payload)
+        return 'post'
+    
+    def put(self):
+        return 'put'
+    
+    def delete(self):
+        return 'delete'
+
 
 @app.route('/create', methods=['POST'])
 def Create():
@@ -32,14 +47,4 @@ def Create():
     # make_response - formula uma resposta com status 
     # jsonify - formata os dados em JSON para poder ser enviado
 
-@app.route('/read', methods=['GET'])
-def Read():
-    return make_response(jsonify(banco), 200)
-
-@app.route('/update', methods=['PUT'])
-def Update():
-    return 1
-
-@app.route('/delete', methods=['DELETE'])
-def Delete():
     return 1

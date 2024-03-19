@@ -5,9 +5,9 @@ import './style.css'
 /* Ou uso fetch() ou Axios
 	fetch('url',{...}).then(function(response){});
 */
-function Exchange(dict, url){
+function Exchange(dict, url, method){
 	return new Promise((resolve, reject) => fetch(url, {
-			method : 'POST',
+			method : method,
 			credentials : 'include',
 			body : JSON.stringify(dict),
 			cache : 'no-cache',
@@ -37,7 +37,7 @@ export default function App(){
 	useEffect(() =>{
 		try {
 			const x = async () =>{
-				const resp = await (await fetch('http://127.0.0.1:5000/flask/pop')).json()
+				const resp = await (await fetch('http://127.0.0.1:5000/toDo/cards')).json()
 				setDB([...DB, ...resp])	
 				console.log(resp)
 			} 
@@ -53,7 +53,7 @@ export default function App(){
 
 		if (title.value.length !== 0 && content.value.length !== 0){
 			// Conexão com API
-			const valor = await Exchange({title : title.value, content : content.value}, 'http://localhost:5000/create')
+			const valor = await Exchange({title : title.value, content : content.value}, 'http://localhost:5000/create', 'POST')
 			setView(`PyBanco : Title ${valor.title}, Content  ${valor.content}`)
 			setDB([...DB, valor])
 
