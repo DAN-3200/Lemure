@@ -37,7 +37,7 @@ export default function App(){
 	useEffect(() =>{
 		try {
 			const x = async () =>{
-				const resp = await (await fetch('http://localhost:5000/read')).json()
+				const resp = await (await fetch('http://127.0.0.1:5000/flask/pop')).json()
 				setDB([...DB, ...resp])	
 				console.log(resp)
 			} 

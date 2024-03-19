@@ -3,25 +3,26 @@ from flask import (
     make_response, # formartar uma respostar HTTP
     request, # pegar dados que são passados pela rotas HTTP
 )
-
 from flask_restx import ( # Suporte para criação de APIs RESTful
     Resource,
-    fields
+    fields,
+    Namespace
 )
-
-from main import app, api
+from main import ( 
+    app, # raiz da aplicação
+    api,
+    ns
+)
 import random
 
 # --- C.R.U.D 
 banco = [{'title':'backEnd', 'content': 'backEnd'}]
 
-noteModel = api.model('note', {
-    'title' : fields.String,
-    'content' : fields.String
-})
+@ns.route('/pop', methods=['GET'])
+class test(Resource):
+    def get(self):
+        return banco
 
-@api.expect(noteModel)
-@api.marshal_with(noteModel)
 @app.route('/create', methods=['POST'])
 def Create():
     data = request.get_json() # pegar os dados JSON que são passados pela rota
