@@ -1,7 +1,5 @@
 from flask import (
     jsonify, # formatar em JSON
-    make_response, # formartar uma respostar HTTP
-    request, # pegar dados que são passados pela rotas HTTP
 )
 from flask_restx import ( # Suporte para criação de APIs RESTful
     Resource,
@@ -25,34 +23,30 @@ modelBank = api.model('Banco',{
     'content' : fields.String(description='Conteúdo')
 })
 
+modelCard = api.model('card',{
+    'title' : fields.String(description='Título'),
+    'content' : fields.String(description='Conteúdo')
+})
+
 @ns.route('/cards')
 class test(Resource):
     #@api.expect('') - estabelece um modelo de entradada
     #@api.marshal_with('') - estabelece um modelo de retorno
 
-    
     @ns.marshal_with(modelBank)
     def get(self):
         return banco
     
+    @ns.expect(modelBank)
     def post(self):
-        print(ns.payload)
-        return 'post'
+        print("restx:",ns.payload)
+        data = ns.payload # pegar os dados JSON que são passados pela rota
+        banco.append(data)
+
+        return jsonify(data)
     
     def put(self):
         return 'put'
     
     def delete(self):
         return 'delete'
-
-
-@app.route('/create', methods=['POST'])
-def Create():
-    data = request.get_json() # pegar os dados JSON que são passados pela rota
-    banco.append(data)
-    
-    return make_response(jsonify(data), 200) 
-    # make_response - formula uma resposta com status 
-    # jsonify - formata os dados em JSON para poder ser enviado
-
-    return 1

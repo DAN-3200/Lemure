@@ -53,7 +53,7 @@ export default function App(){
 
 		if (title.value.length !== 0 && content.value.length !== 0){
 			// Conexão com API
-			const valor = await Exchange({title : title.value, content : content.value}, 'http://localhost:5000/create', 'POST')
+			const valor = await Exchange({title : title.value, content : content.value}, 'http://127.0.0.1:5000/toDo/cards', 'POST')
 			setView(`PyBanco : Title ${valor.title}, Content  ${valor.content}`)
 			setDB([...DB, valor])
 
