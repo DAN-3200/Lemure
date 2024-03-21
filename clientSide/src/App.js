@@ -2,9 +2,6 @@
 import { useState, useEffect } from 'react'
 import './style.css'
 
-/* Ou uso fetch() ou Axios
-	fetch('url',{...}).then(function(response){});
-*/
 function Exchange(dict, url, method){
 	return new Promise((resolve, reject) => fetch(url, {
 			method : method,
@@ -31,7 +28,6 @@ function Exchange(dict, url, method){
 // -- Função principal
 export default function App(){
 	const [DB, setDB] = useState([])
-	const [view, setView] = useState('vazio')
 
 	// Pegar todos dados do API: uma única vez 
 	useEffect(() =>{
@@ -54,7 +50,6 @@ export default function App(){
 		if (title.value.length !== 0 && content.value.length !== 0){
 			// Conexão com API
 			const valor = await Exchange({title : title.value, content : content.value}, 'http://127.0.0.1:5000/toDo/cards', 'POST')
-			setView(`PyBanco : Title ${valor.title}, Content  ${valor.content}`)
 			setDB([...DB, valor])
 
 			title.value = ''
@@ -71,7 +66,6 @@ export default function App(){
 				<textarea id="dataContent" placeholder='Content'></textarea>
 				<button onClick={TakeData}>Criar</button>
 			</div>
-			<p style={{color: 'white'}}>{view}</p>
 			<div className="fieldCards">
 				{DB.map((item, index) => (
 					<Card DB={DB} setDB={setDB} item={item} key={index} />
@@ -87,13 +81,16 @@ function Card(props){
 	const [content, setContent] = useState(props.item.content)
 	
 	const Delete = (id) => {
-		props.setDB(props.DB.filter((item) => item.id !== id ? true : false))
+		const newDB = props.DB.filter((item) => item.id !== id)
+		props.setDB(newDB)
+		Exchange(id, `http://127.0.0.1:5000/toDo/cards/${id}`, 'DELETE')
 	}
 
 	const [blink, setBlink] = useState(false)
 	const Update = (id) =>{
 		const p = props.DB.map((task) => {
 			if(task.id === id){
+				Exchange({title : title, content : content}, `http://127.0.0.1:5000/toDo/cards/${id}`, 'PUT')
 				return {...task, title : title, content : content}
 			}else{
 				return task
