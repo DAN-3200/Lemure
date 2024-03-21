@@ -7,23 +7,17 @@ from flask_restx import ( # Suporte para criação de APIs RESTful
     Namespace
 )
 from main import ( 
-    app, # raiz da aplicação
     api, # raiz da API RESTful
 )
 import random
-
+# -- Sistema C.R.U.D
 ns = Namespace('toDo', description='CRUD')
 api.add_namespace(ns)
 
-# --- C.R.U.D 
-banco = [{'title':'restx', 'content': 'restx'}]
-
-modelBank = api.model('Banco',{
-    'title' : fields.String(description='Título'),
-    'content' : fields.String(description='Conteúdo')
-})
+banco = [{'id': 1,'title':'restx', 'content': 'restx'}]
 
 modelCard = api.model('card',{
+    'id' : fields.Integer(description='Identificação'),
     'title' : fields.String(description='Título'),
     'content' : fields.String(description='Conteúdo')
 })
@@ -32,12 +26,12 @@ modelCard = api.model('card',{
 class test(Resource):
     #@api.expect('') - estabelece um modelo de entradada
     #@api.marshal_with('') - estabelece um modelo de retorno
+    idCount = 1
 
-    @ns.marshal_with(modelBank)
     def get(self):
         return banco
     
-    @ns.expect(modelBank)
+    @ns.expect(modelCard)
     def post(self):
         print("restx:",ns.payload)
         data = ns.payload # pegar os dados JSON que são passados pela rota

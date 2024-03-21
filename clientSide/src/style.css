@@ -5,7 +5,7 @@
 }
 
 .wall{
-	height: 600px;
+	height: 700px;
 	width: 500px;
 	display: flex;
 	flex-direction: column;
@@ -68,9 +68,8 @@
 	gap: 10px;
 	overflow: auto;
 
-	scrollbar-width: thin;          /* "auto" or "thin" */
+	scrollbar-width: none;          /* "auto" or "thin" */
 	scrollbar-color: silver;
-
 }
 
 
