@@ -84,7 +84,7 @@ function Card(props){
 		const newDB = props.DB.filter((item) => item.id !== id)
 		props.setDB(newDB)
 		console.log(props.DB)
-		//Exchange(id, `http://127.0.0.1:5000/toDo/cards/${id}`, 'DELETE')
+		Exchange(id, `http://127.0.0.1:5000/toDo/cards/${id}`, 'DELETE')
 	}
 
 	const [blink, setBlink] = useState(false)

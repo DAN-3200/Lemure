@@ -19,12 +19,14 @@ api.add_namespace(ns)
 # -- Rotas
 
 def created(array):
-    db.session.add(cards(array['title'], array['content']))
+    newCard = cards(array['title'], array['content'])
+    db.session.add(newCard)
     db.session.commit()
 
-    return 'ok', 200
+    return {'id': newCard.id, 'title' : newCard.title, 'content': newCard.content}
 
 def readed():
+    # compreensão de lista -> [expressão for item in lista]
     return [{'id': card.id, 'title': card.title, 'content': card.content} for card in cards.query.all()]
 
 def updated(id, array):
