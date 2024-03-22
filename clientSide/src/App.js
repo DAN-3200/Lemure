@@ -61,16 +61,28 @@ export default function App(){
 
 	return(<>
 		<div className="wall">
+			<MiniAba />
+
 			<div className="inputCard">
 				<input id="dataTitle" placeholder='Title'></input>
 				<textarea id="dataContent" placeholder='Content'></textarea>
 				<button onClick={TakeData}>Criar</button>
 			</div>
+			
 			<div className="fieldCards">
 				{DB.map((item, index) => (
 					<Card DB={DB} setDB={setDB} item={item} key={index} />
 				))}
 			</div>
+		</div>
+	</>)
+}
+
+function MiniAba(){
+	return (<>
+		<div className='miniAba'>
+			<button></button>
+			<button></button>
 		</div>
 	</>)
 }
@@ -82,6 +94,7 @@ function Card(props){
 	
 	const Delete = (id) => {
 		const newDB = props.DB.filter((item) => item.id !== id)
+		console.log(props.DB)
 		props.setDB(newDB)
 		console.log(props.DB)
 		Exchange(id, `http://127.0.0.1:5000/toDo/cards/${id}`, 'DELETE')

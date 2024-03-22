@@ -1,5 +1,4 @@
 /* Adotar o estilo de declaração 'camelCase' */
-
 .wall *{
 	font-family: "Poppins", sans-serif;
 }
@@ -12,11 +11,31 @@
 	gap: 10px;
 }
 
+/* --- miniAba */
+.miniAba{
+	background-color: white;
+	height: 40px;
+	padding: 0px 10px;	
+	border-radius: 7.5px;
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+	align-items: center;
+}
+.miniAba button{
+	height: 25px;
+	width: 25px;
+	cursor: pointer;
+}
+
+/* --- inputCard */
 .inputCard{
 	min-height: 150px;
 	max-height: 200px;
 	padding: 10px;
-	border-radius: 10px;
+	border-radius: 7.5px;
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
@@ -72,12 +91,12 @@
 	scrollbar-color: silver;
 }
 
-
+/* --- card */
 .card{
 	display: grid;
 	grid-auto-rows: 30px 1fr auto;	
 	background-color: white;
-	border-radius: 10px;
+	border-radius: 7.5px;
 	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 	
 }
