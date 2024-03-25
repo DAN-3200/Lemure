@@ -81,8 +81,7 @@ export default function App(){
 function MiniAba(){
 	return (<>
 		<div className='miniAba'>
-			<button></button>
-			<button></button>
+			<p>Card App</p>
 		</div>
 	</>)
 }

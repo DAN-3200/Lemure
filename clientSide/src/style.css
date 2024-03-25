@@ -19,16 +19,18 @@
 	border-radius: 7.5px;
 	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
-	display: flex;
-	flex-direction: row;
+	display: grid;
+	place-items: center;
 	gap: 5px;
 	align-items: center;
 }
-.miniAba button{
-	height: 25px;
-	width: 25px;
-	cursor: pointer;
+
+.miniAba p{
+	font-size: 12px;
+	font-weight: bolder;
+	color: rgb(126, 126, 126);
 }
+
 
 /* --- inputCard */
 .inputCard{

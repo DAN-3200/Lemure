@@ -3,6 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_restx import Api
+# flask_JWT - Segurança no intercâmbio de dados
 
 # - Definições do App
 app = Flask(__name__)
