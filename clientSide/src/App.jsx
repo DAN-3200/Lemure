@@ -1,6 +1,6 @@
 //-- Imports 
 import { useState, useEffect } from 'react'
-import './style.css'
+import './App.css'
 
 function Exchange(dict, url, method){
 	return new Promise((resolve, reject) => fetch(url, {

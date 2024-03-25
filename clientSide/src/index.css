@@ -1,0 +1,7 @@
+/* Esse CSS altera diretamente o index.html */
+:root {
+  background-color: #28282b;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+}

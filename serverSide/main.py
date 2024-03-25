@@ -3,14 +3,15 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_restx import Api
-# flask_JWT - Segurança no intercâmbio de dados
+# flask_JWT - segurança no intercâmbio de dados
+# flask_migrate - versionamento do banco
 
 # - Definições do App
 app = Flask(__name__)
 CORS(app, supports_credentials=True) # Isto permiti a solicitação entre apps de domínios diferentes 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.app_context().push()
+app.app_context().push() # !analisar
 
 app.config['SECRET_KEY'] = 'ab44d789595b66efeda6b633e686a9db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
