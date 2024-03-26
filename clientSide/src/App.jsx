@@ -2,6 +2,9 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 
+const title = document.getElementsByTagName('title')[0]
+title.innerHTML = "Title JSX"
+
 function Exchange(dict, url, method){
 	return new Promise((resolve, reject) => fetch(url, {
 			method : method,
