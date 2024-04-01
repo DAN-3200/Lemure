@@ -64,12 +64,10 @@ export default function App(){
 
 	return(<>
 		<div className="wall">
-			<MiniAba />
-
 			<div className="inputCard">
 				<input id="dataTitle" placeholder='Title'></input>
-				<textarea id="dataContent" placeholder='Content'></textarea>
 				<button onClick={TakeData}>Criar</button>
+				<textarea id="dataContent" placeholder='Content'></textarea>
 			</div>
 			
 			<div className="fieldCards">
@@ -81,10 +79,10 @@ export default function App(){
 	</>)
 }
 
-function MiniAba(){
+function Banner(){
 	return (<>
-		<div className='miniAba'>
-			<p>Card App</p>
+		<div className='banner'>
+			<img src="https://www.pixground.com/wp-content/uploads/2023/10/Anime-Sunset-Sky-AI-Generated-4K-Wallpaper.jpg" alt="" />
 		</div>
 	</>)
 }
