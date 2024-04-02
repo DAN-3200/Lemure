@@ -66,7 +66,7 @@ export default function App(){
 		<div className="wall">
 			<div className="inputCard">
 				<input id="dataTitle" placeholder='Title'></input>
-				<button onClick={TakeData}>Criar</button>
+				<button onClick={TakeData}>C</button>
 				<textarea id="dataContent" placeholder='Content'></textarea>
 			</div>
 			
