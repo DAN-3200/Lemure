@@ -1,4 +1,4 @@
-## configuração visual do VS
+## settings.json Visual Studio Code
 ```json
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.patterns": {
