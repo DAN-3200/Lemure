@@ -42,6 +42,8 @@ def deleted(id):
     db.session.delete(trash)
     db.session.commit()
 
+# -------------------------------------------
+
 @ns.route('/cards')
 class systemOne(Resource):
     #@api.expect('') - estabelece um modelo de entradada
