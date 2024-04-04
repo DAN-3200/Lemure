@@ -10,8 +10,8 @@
 ```
     npm install
 ```
-
-## settings.json Visual Studio Code
+#
+### settings.json Visual Studio Code
 ```json
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.patterns": {
