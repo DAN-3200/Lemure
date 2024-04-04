@@ -1,10 +1,4 @@
-## Embasamento:
-API restful - [flask_restx](https://flask-restx.readthedocs.io/en/latest/example.html)
-
-UI - React Vite
-
-
-## configuração visual do VS
+## settings.json Visual Studio Code
 ```json
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.patterns": {
