@@ -1,1 +1,0 @@
-# Pasta comum para arquivos estáticos - arquivos estes que são renderizados e compilados primeiramente pelo vite

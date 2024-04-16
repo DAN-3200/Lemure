@@ -1,0 +1,188 @@
+// - imports
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+
+// - variáveis [4|8 pointGrid]
+$nPadding: 4px;
+$nMargin: 4px;
+$nRadius: 4px;
+$nFont-Size: 12px;
+
+$vColor-1: #4169e1;
+$vColor-2: #4eff98;
+$vColor-3: #ffaa33;
+$vDark: #28282b;
+$vWhite: #e5e4e2;
+$vDark-off: #343434;
+$vWhite-off: #faf9f6;
+
+
+@mixin font-grad($color1, $color2) {
+	background-image: linear-gradient(
+		90deg,
+		$color1 0%,
+		$color2 90%
+	); /* Gradiente de laranja para vermelho */
+	-webkit-background-clip: text; /* Aplica o gradiente dentro do texto */
+	color: transparent; /* Torna o texto transparente para mostrar o gradiente por trás */
+}
+
+// - estilização
+* {
+	// Generálização
+	box-sizing: border-box;
+
+	font-family: 'Jost', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+
+	button{
+		display: grid;
+		place-items: center;
+	}
+}
+body {
+	padding: 0;
+	margin: 0;
+	background: rgb(65,105,225);
+	background: linear-gradient(90deg, rgba(65,105,225,1) 0%, rgba(78,255,152,1) 51%);
+
+	#root {
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+	}
+}
+.box {
+	width: 680px;
+	height: 640px;
+	margin-top: $nMargin * 2;
+	// background-color: $vColor-1;
+	display: grid;
+	row-gap: 8px;
+	grid-template-rows: 48px 1fr;
+
+	.menuApp {
+		background-color: $vDark;
+		border-radius: $nRadius;
+		padding: $nPadding * 2 $nPadding * 4;
+		align-items: center;
+		display: flex;
+		gap: 8px;
+
+		button.buttonMenu {
+			background-color: transparent;
+			border: none;
+			color: $vWhite;
+         cursor: pointer;
+		}
+		button.createNote {
+			min-width: 48px;
+			height: 28px;
+			border-radius: $nRadius;
+			color: $vWhite;
+			background: rgb(65,105,225);
+			border: none;
+			font-size: 12px;
+			padding: 0px $nPadding * 2;
+			margin-left: auto;
+			white-space: nowrap;
+         cursor: pointer;
+		}
+		span.nameApp{
+			@include font-grad($vColor-1, $vColor-2 );
+			font-weight: 640;
+			margin: 0 auto;
+		}
+	}
+	.notesField {
+		border-radius: $nRadius;
+		padding: $nPadding * 2;
+		// background-color: $vDark;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+
+		.note {
+			background-color: $vDark;
+			min-height: 120px;
+			border-radius: $nRadius;
+			padding: $nPadding * 2;
+			display: grid;
+			grid-template-columns: 16px auto;
+			gap: 4px;
+
+			.colorNote {
+				background-color: $vColor-2;
+				border-radius: $nRadius;
+			}
+			.formNote {
+				// background-color: #E5E4E2;
+				border-radius: $nRadius;
+            display: grid;
+            grid-template-rows: 32px auto 20px;
+            row-gap: 4px;
+				padding: 0px $nPadding*2;
+
+				input{
+					background-color: transparent;
+					border: none;
+					border: 2px solid transparent;
+					outline: none;
+					border-radius: $nRadius;
+					font-size: 16px;
+					padding: $nPadding;
+					color: $vWhite-off;
+
+					&:hover{
+						transition: 0.3s;
+						border: 2px solid $vDark-off ;
+
+						&:focus{
+							transition: 0.3s;
+							border: 2px solid $vColor-1 ;
+						}
+					}
+
+				}
+				textarea{
+					background-color: transparent;
+					border: none;
+					resize: none;
+					border: 2px solid transparent;
+					outline: none;
+					border-radius: $nRadius;
+					transition: 0.2s;
+					font-size: 12px;
+					padding: $nPadding;
+					color: $vWhite;
+					height: 32px;
+
+					overflow: hidden;
+					text-overflow: ellipsis;
+
+					&:focus{
+						transition: 0.3s;
+						border: 2px solid $vColor-1 ;
+						height: 120px;
+					}
+
+					
+					&:hover{
+						transition: 0.3s;
+						border: 2px solid $vDark-off ;
+
+					}
+
+				}
+				.toolsNote{
+					display: flex;
+					font-size: 12px;
+					justify-content: end;
+					align-items: center;
+					color: $vWhite;
+				}
+			}
+		}
+	}
+}
