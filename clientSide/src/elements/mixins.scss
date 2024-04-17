@@ -1,0 +1,9 @@
+@mixin font-grad($color1, $color2) {
+	background-image: linear-gradient(
+		90deg,
+		$color1 0%,
+		$color2 90%
+	); // Gradiente
+	-webkit-background-clip: text; // aplica o Gradiente no texto
+	color: transparent; // Torna o texto transparente para mostrar o Gradiente por trás
+}

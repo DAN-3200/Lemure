@@ -1,3 +1,4 @@
 # Aqui fica os arquivos estáticos:
     - Arquivos estáticos que são servidos diretamente ao navegador
     sem passar pelo processo de compilação ou transformação pelo Vite.
+    - Bom pra guardar videos, imagens, áudios...
