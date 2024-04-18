@@ -34,11 +34,8 @@ body {
 	padding: 0;
 	margin: 0;
 	background: rgb(65, 105, 225);
-	background: linear-gradient(
-		90deg,
-		rgba(65, 105, 225, 1) 0%,
-		rgba(78, 255, 152, 1) 51%
-	);
+	background: rgb(65,105,225);
+	background: linear-gradient(180deg, rgba(65,105,225,1) 0%, rgba(78,255,152,1) 100%); 
 
 	#root {
 		height: 100vh;
@@ -191,10 +188,36 @@ body {
 				}
 				.toolsNote {
 					display: flex;
+					gap: 8px;
 					font-size: 12px;
-					justify-content: end;
 					align-items: center;
 					color: $vWhite;
+
+					button{
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						background: transparent;
+						border: none;
+						color: $vWhite;
+						transition: 0.2s;
+				
+						cursor: pointer;
+						svg{
+							font-size: 16px;
+						}
+						&.deleteNote:hover{
+							transition: 0.2s;
+							color: rgb(252, 129, 129);
+						}
+						&.saveNote:hover{
+							transition: 0.2s;
+							color: #4eff98;
+						}
+					}
+					span{
+						margin-left: auto;
+					}
 				}
 			}
 		}
