@@ -63,7 +63,6 @@ function NotesField() {
 					await fetch('http://127.0.0.1:5000/toDo/cards')
 				).json()
 				setDB([...DB, ...resp])
-				console.log(resp)
 			}
 			x()
 		} catch (error) {
@@ -80,19 +79,19 @@ function NotesField() {
 	)
 }
 
-function Note(s) {
+function Note(props) {
 	const [DB, setDB] = useContext(context)
-	const [title, setTitle] = useState(s.item.title)
-	const [content, setContent] = useState(s.item.content)
+	const [title, setTitle] = useState(props.item.title)
+	const [content, setContent] = useState(props.item.content)
 
 	const Delete = (id) => {
 		const newDB = DB.filter((item) => item.id !== id)
-		Exchange(id, `http://127.0.0.1:5000/toDo/cards/${id}`, 'DELETE')
+		//Exchange(id, `http://127.0.0.1:5000/toDo/cards/${id}`, 'DELETE')
 		setDB(newDB)
 	}
 
 	const Update = (id) => {
-		const p = DB.map((task) => {
+		const item = DB.map((task) => {
 			if (task.id === id) {
 				Exchange(
 					{ title: title, content: content },
@@ -104,8 +103,13 @@ function Note(s) {
 				return task
 			}
 		})
-		setDB(p)
+		setDB(item)
 	}
+
+	useEffect(()=>{
+		Update(props.item.id)
+		//console.log(`update - ${props.item.id}`)
+	}, [title, content])
 
 	return (
 		<div className='note'>
@@ -116,7 +120,6 @@ function Note(s) {
 					value={title}
 					onChange={(e) => {
 						setTitle(e.target.value)
-						Update(s.item.id)
 					}}
 				/>
 				<textarea
@@ -124,11 +127,10 @@ function Note(s) {
 					value={content}
 					onChange={(e) => {
 						setContent(e.target.value)
-						Update(s.item.id)
 					}}
 				/>
 				<div className='toolsNote'>
-					<button className='deleteNote' onClick={() => Delete(s.item.id)}>
+					<button className='deleteNote' onClick={() => Delete(props.item.id)}>
 						<RiDeleteBin2Line />
 					</button>
 					<button className='saveNote'>
