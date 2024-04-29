@@ -2,11 +2,9 @@ import './Design.scss'
 import { HiOutlineCheckCircle } from 'react-icons/hi'
 import {
 	RiAddCircleLine,
-	RiBox3Line,
-	RiCheckboxCircleLine,
 	RiDeleteBin2Line,
+	RiStarLine
 } from 'react-icons/ri'
-
 import { useState, useEffect, useContext, createContext } from 'react'
 import { Exchange } from '../elements/fetch'
 
@@ -14,7 +12,7 @@ const context = createContext() // Criei o contexto
 
 export default function Design() {
 	const title = document.getElementsByTagName('title')[0]
-	title.innerHTML = 'New Design'
+	title.innerHTML = 'App Note'
 	const [DB, setDB] = useState([])
 
 	return (
@@ -86,7 +84,7 @@ function Note(props) {
 
 	const Delete = (id) => {
 		const newDB = DB.filter((item) => item.id !== id)
-		//Exchange(id, `http://127.0.0.1:5000/toDo/cards/${id}`, 'DELETE')
+		Exchange(id, `http://127.0.0.1:5000/toDo/cards/${id}`, 'DELETE')
 		setDB(newDB)
 	}
 
@@ -134,7 +132,7 @@ function Note(props) {
 						<RiDeleteBin2Line />
 					</button>
 					<button className='saveNote'>
-						<RiCheckboxCircleLine />
+						<RiStarLine />
 					</button>
 					<span>19 Fev, 2024</span>
 				</div>
