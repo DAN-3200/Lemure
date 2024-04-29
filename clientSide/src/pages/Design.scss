@@ -34,15 +34,18 @@ body {
 	padding: 0;
 	margin: 0;
 	background: rgb(65, 105, 225);
-	background: rgb(65,105,225);
-	background: linear-gradient(180deg, rgba(65,105,225,1) 0%, rgba(78,255,152,1) 100%); 
+	background: rgb(65, 105, 225);
+	background: linear-gradient(
+		180deg,
+		rgba(65, 105, 225, 1) 0%,
+		rgba(78, 255, 152, 1) 100%
+	);
 
 	#root {
 		height: 100vh;
 		display: flex;
 		justify-content: center;
 	}
-	
 }
 .box {
 	width: 680px;
@@ -94,7 +97,7 @@ body {
 			align-items: center;
 			gap: 4px;
 
-			svg{
+			svg {
 				font-size: 16px;
 			}
 		}
@@ -194,7 +197,7 @@ body {
 					align-items: center;
 					color: $vWhite;
 
-					button{
+					button {
 						display: flex;
 						align-items: center;
 						justify-content: center;
@@ -202,21 +205,21 @@ body {
 						border: none;
 						color: $vWhite;
 						transition: 0.2s;
-				
+
 						cursor: pointer;
-						svg{
+						svg {
 							font-size: 16px;
 						}
-						&.deleteNote:hover{
+						&.deleteNote:hover {
 							transition: 0.2s;
 							color: rgb(252, 129, 129);
 						}
-						&.saveNote:hover{
+						&.saveNote:hover {
 							transition: 0.2s;
 							color: #4eff98;
 						}
 					}
-					span{
+					span {
 						margin-left: auto;
 					}
 				}

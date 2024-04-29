@@ -106,7 +106,7 @@ function Note(props) {
 		setDB(item)
 	}
 
-	useEffect(()=>{
+	useEffect(() => {
 		Update(props.item.id)
 		//console.log(`update - ${props.item.id}`)
 	}, [title, content])
