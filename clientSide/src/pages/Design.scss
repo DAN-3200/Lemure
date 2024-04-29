@@ -33,14 +33,14 @@ $vWhite-off: #faf9f6;
 body {
 	padding: 0;
 	margin: 0;
-	background: rgb(65, 105, 225);
-	background: rgb(65, 105, 225);
 	background: linear-gradient(
 		180deg,
 		rgba(65, 105, 225, 1) 0%,
 		rgba(78, 255, 152, 1) 100%
 	);
 
+	background-repeat: no-repeat;
+	background-size: cover;
 	#root {
 		height: 100vh;
 		display: flex;
@@ -177,7 +177,6 @@ body {
 					height: 32px;
 
 					overflow: hidden;
-					text-overflow: ellipsis;
 
 					&:focus {
 						transition: 0.3s;

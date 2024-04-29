@@ -23,11 +23,11 @@ def created(array):
     db.session.add(newCard)
     db.session.commit()
 
-    return {'id': newCard.id, 'title' : newCard.title, 'content': newCard.content}
+    return {'id': newCard.id, 'title' : newCard.title, 'content': newCard.content, 'date': newCard.date.strftime('%d %B, %Y')}
 
 def readed():
     # compreensão de lista -> [expressão for item in lista]
-    return [{'id': card.id, 'title': card.title, 'content': card.content} for card in cards.query.all()]
+    return [{'id': card.id, 'title': card.title, 'content': card.content, 'date': card.date.strftime('%d %B, %Y')} for card in cards.query.all()]
 
 def updated(id, array):
     setCard = cards.query.get(id)

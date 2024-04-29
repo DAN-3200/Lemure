@@ -1,10 +1,5 @@
 import './Design.scss'
-import { HiOutlineCheckCircle } from 'react-icons/hi'
-import {
-	RiAddCircleLine,
-	RiDeleteBin2Line,
-	RiStarLine
-} from 'react-icons/ri'
+import { RiAddCircleLine, RiDeleteBin2Line, RiStarLine } from 'react-icons/ri'
 import { useState, useEffect, useContext, createContext } from 'react'
 import { Exchange } from '../elements/fetch'
 
@@ -43,7 +38,7 @@ function MenuApp() {
 			<button className='buttonMenu'>All</button>
 			<button className='buttonMenu'>Favorites</button>
 			<button className='buttonMenu'>Trash</button>
-			<span className='nameApp'>OHKEN</span>
+			<span className='nameApp'>LEMURE</span>
 			<button className='createNote' onClick={() => createNote()}>
 				<RiAddCircleLine /> criar nota
 			</button>
@@ -106,7 +101,6 @@ function Note(props) {
 
 	useEffect(() => {
 		Update(props.item.id)
-		//console.log(`update - ${props.item.id}`)
 	}, [title, content])
 
 	return (
@@ -134,7 +128,7 @@ function Note(props) {
 					<button className='saveNote'>
 						<RiStarLine />
 					</button>
-					<span>19 Fev, 2024</span>
+					<span>{props.item.date}</span>
 				</div>
 			</div>
 		</div>
