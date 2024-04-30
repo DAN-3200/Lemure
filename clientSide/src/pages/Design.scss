@@ -38,9 +38,10 @@ body {
 		rgba(65, 105, 225, 1) 0%,
 		rgba(78, 255, 152, 1) 100%
 	);
-
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-attachment: fixed;
+
 	#root {
 		height: 100vh;
 		display: flex;
