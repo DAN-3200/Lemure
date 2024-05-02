@@ -65,8 +65,8 @@ function NotesField() {
 
 	return (
 		<div className='notesField'>
-			{DB.map((item, index) => (
-				<Note item={item} key={index} />
+			{DB.map((item) => (
+				<Note item={item} key={item.id} />
 			))}
 		</div>
 	)
@@ -79,8 +79,8 @@ function Note(props) {
 
 	const Delete = (id) => {
 		const newDB = DB.filter((item) => item.id !== id)
-		Exchange(id, `http://127.0.0.1:5000/toDo/cards/${id}`, 'DELETE')
 		setDB(newDB)
+		Exchange(id, `http://127.0.0.1:5000/toDo/cards/${id}`, 'DELETE')
 	}
 
 	const Update = (id) => {
