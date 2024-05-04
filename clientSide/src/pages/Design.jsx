@@ -33,19 +33,10 @@ function MenuApp() {
 		setDB([...DB, valor])
 	}
 
-	const showFavo = () => {
-		const list = DB.filter((item) => false !== item.favorited)
-		setDB(list)
-	}
-
-	const showAll = () =>{
-		
-	}
-
 	return (
 		<div className='menuApp'>
-			<button className='buttonMenu' onClick={() => showAll()}>All</button>
-			<button className='buttonMenu' onClick={()=> showFavo()}>Favorites</button>
+			<button className='buttonMenu'>All</button>
+			<button className='buttonMenu'>Favorites</button>
 			<button className='buttonMenu'>Trash</button>
 			<span className='nameApp'>LEMURE</span>
 			<button className='createNote' onClick={() => createNote()}>
@@ -74,9 +65,11 @@ function NotesField() {
 
 	return (
 		<div className='notesField'>
-			{DB.map((item) => (
-				<Note item={item} key={item.id} />
-			))}
+			{true
+				? DB.map((item) => <Note item={item} key={item.id} />)
+				: DB.filter((item) => item.favorited === true).map((item) => (
+						<Note item={item} key={item.id} />
+				  ))}
 		</div>
 	)
 }
