@@ -33,10 +33,19 @@ function MenuApp() {
 		setDB([...DB, valor])
 	}
 
+	const showFavo = () => {
+		const list = DB.filter((item) => false !== item.favorited)
+		setDB(list)
+	}
+
+	const showAll = () =>{
+		
+	}
+
 	return (
 		<div className='menuApp'>
-			<button className='buttonMenu'>All</button>
-			<button className='buttonMenu'>Favorites</button>
+			<button className='buttonMenu' onClick={() => showAll()}>All</button>
+			<button className='buttonMenu' onClick={()=> showFavo()}>Favorites</button>
 			<button className='buttonMenu'>Trash</button>
 			<span className='nameApp'>LEMURE</span>
 			<button className='createNote' onClick={() => createNote()}>
@@ -129,7 +138,7 @@ function Note(props) {
 						<RiDeleteBin2Line />
 					</button>
 					<button className='saveNote' onClick={() => setFavo(!favo)}>
-						<RiStarLine style={{color: (favo) ? "#ffaa33" : ""  }} />  
+						<RiStarLine style={{ color: favo ? '#ffaa33' : '' }} />
 					</button>
 					<span>{props.item.date}</span>
 				</div>
