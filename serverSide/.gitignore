@@ -1,2 +1,3 @@
 venv/
 *instance/database.db
+serverSide\instance\database.db

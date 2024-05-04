@@ -33,10 +33,19 @@ function MenuApp() {
 		setDB([...DB, valor])
 	}
 
+	const showFavo = () => {
+		const list = DB.filter((item) => false !== item.favorited)
+		setDB(list)
+	}
+
+	const showAll = () =>{
+		
+	}
+
 	return (
 		<div className='menuApp'>
-			<button className='buttonMenu'>All</button>
-			<button className='buttonMenu'>Favorites</button>
+			<button className='buttonMenu' onClick={() => showAll()}>All</button>
+			<button className='buttonMenu' onClick={()=> showFavo()}>Favorites</button>
 			<button className='buttonMenu'>Trash</button>
 			<span className='nameApp'>LEMURE</span>
 			<button className='createNote' onClick={() => createNote()}>
@@ -76,6 +85,9 @@ function Note(props) {
 	const [DB, setDB] = useContext(context)
 	const [title, setTitle] = useState(props.item.title)
 	const [content, setContent] = useState(props.item.content)
+	const [favo, setFavo] = useState(props.item.favorited)
+
+	console.log(props.item)
 
 	const Delete = (id) => {
 		const newDB = DB.filter((item) => item.id !== id)
@@ -87,7 +99,7 @@ function Note(props) {
 		const item = DB.map((task) => {
 			if (task.id === id) {
 				Exchange(
-					{ title: title, content: content },
+					{ title: title, content: content, favorited: favo },
 					`http://127.0.0.1:5000/toDo/cards/${id}`,
 					'PUT'
 				)
@@ -101,7 +113,7 @@ function Note(props) {
 
 	useEffect(() => {
 		Update(props.item.id)
-	}, [title, content])
+	}, [title, content, favo])
 
 	return (
 		<div className='note'>
@@ -125,8 +137,8 @@ function Note(props) {
 					<button className='deleteNote' onClick={() => Delete(props.item.id)}>
 						<RiDeleteBin2Line />
 					</button>
-					<button className='saveNote'>
-						<RiStarLine />
+					<button className='saveNote' onClick={() => setFavo(!favo)}>
+						<RiStarLine style={{ color: favo ? '#ffaa33' : '' }} />
 					</button>
 					<span>{props.item.date}</span>
 				</div>
