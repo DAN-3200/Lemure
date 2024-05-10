@@ -46,7 +46,11 @@ body {
 		height: 100vh;
 		display: flex;
 		justify-content: center;
+	}	
+	&::-webkit-scrollbar{
+		display: none;
 	}
+	
 }
 .box {
 	width: 680px;
