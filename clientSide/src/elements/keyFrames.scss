@@ -6,3 +6,21 @@
 	
 	}
 }
+
+@keyframes inNote {
+	from{
+		transform: translateX(-180px);
+		opacity: 0%;
+	}to{
+		transform: translateX(0px);
+	}
+}
+
+@keyframes outNote {
+	from{
+		transform: translateX(0px);
+	}to{
+		transform: translateX(180px);
+		opacity: 0%;
+	}
+}

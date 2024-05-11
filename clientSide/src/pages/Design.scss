@@ -46,11 +46,10 @@ body {
 		height: 100vh;
 		display: flex;
 		justify-content: center;
-	}	
-	&::-webkit-scrollbar{
+	}
+	&::-webkit-scrollbar {
 		display: none;
 	}
-	
 }
 .box {
 	width: 680px;
@@ -128,9 +127,17 @@ body {
 			border-radius: $nRadius;
 			padding: $nPadding * 2;
 			display: grid;
-			// grid-template-columns: 16px auto;
 			gap: 4px;
+			animation: inNote 0.4s;
 
+			&.onNote {
+				animation: inNote 0.5s;
+			}
+			&.offNote {
+				animation: outNote 0.25s;
+			}
+
+			// grid-template-columns: 16px auto;
 			// &::before {
 			// 	content: '';
 			// 	background-color: $vColor-2;
@@ -182,8 +189,6 @@ body {
 					color: $vWhite;
 					height: 32px;
 
-					overflow: hidden;
-
 					&:focus {
 						transition: 0.3s;
 						border: 2px solid $vColor-2;
@@ -193,6 +198,9 @@ body {
 					&:not(:focus):hover {
 						transition: 0.3s;
 						border: 2px solid $vDark-off;
+					}
+					&::-webkit-scrollbar {
+						display: none;
 					}
 				}
 				.toolsNote {

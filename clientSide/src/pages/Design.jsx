@@ -107,6 +107,10 @@ function Note(props) {
 		)
 	}
 
+	const ActionDelete = (target) =>{
+		console.log(target)
+	} 
+
 	useEffect(() => {
 		Update(props.item.id)
 	}, [title, content, favo])
