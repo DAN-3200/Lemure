@@ -9,9 +9,10 @@ export default function Design() {
 	const title = document.getElementsByTagName('title')[0]
 	title.innerHTML = 'App Note'
 	const [DB, setDB] = useState([])
+	const [show, setShow] = useState(true)
 
 	return (
-		<context.Provider value={[DB, setDB]}>
+		<context.Provider value={[DB, setDB, show, setShow]}>
 			<div className='box'>
 				<MenuApp />
 				<NotesField />
@@ -21,7 +22,7 @@ export default function Design() {
 }
 
 function MenuApp() {
-	const [DB, setDB] = useContext(context)
+	const [DB, setDB, , setShow] = useContext(context)
 
 	const createNote = async () => {
 		// Conexão com API
@@ -35,9 +36,12 @@ function MenuApp() {
 
 	return (
 		<div className='menuApp'>
-			<button className='buttonMenu'>All</button>
-			<button className='buttonMenu'>Favorites</button>
-			<button className='buttonMenu'>Trash</button>
+			<button className='buttonMenu' onClick={() => setShow(true)}>
+				All
+			</button>
+			<button className='buttonMenu' onClick={() => setShow(false)}>
+				Favorites
+			</button>
 			<span className='nameApp'>LEMURE</span>
 			<button className='createNote' onClick={() => createNote()}>
 				<RiAddCircleLine /> criar nota
@@ -47,7 +51,7 @@ function MenuApp() {
 }
 
 function NotesField() {
-	const [DB, setDB] = useContext(context)
+	const [DB, setDB, show] = useContext(context)
 
 	useEffect(() => {
 		try {
@@ -65,9 +69,11 @@ function NotesField() {
 
 	return (
 		<div className='notesField'>
-			{DB.map((item) => (
-				<Note item={item} key={item.id} />
-			))}
+			{show
+				? DB.map((item) => <Note item={item} key={item.id} />)
+				: DB.filter((item) => true === item.favorited).map((item) => (
+						<Note item={item} key={item.id} />
+				  ))}
 		</div>
 	)
 }
@@ -78,8 +84,6 @@ function Note(props) {
 	const [content, setContent] = useState(props.item.content)
 	const [favo, setFavo] = useState(props.item.favorited)
 
-	console.log(props.item)
-
 	const Delete = (id) => {
 		const newDB = DB.filter((item) => item.id !== id)
 		setDB(newDB)
@@ -89,17 +93,18 @@ function Note(props) {
 	const Update = (id) => {
 		const item = DB.map((task) => {
 			if (task.id === id) {
-				Exchange(
-					{ title: title, content: content, favorited: favo },
-					`http://127.0.0.1:5000/toDo/cards/${id}`,
-					'PUT'
-				)
-				return { ...task, title: title, content: content }
+				return { ...task, title: title, content: content, favorited: favo }
 			} else {
 				return task
 			}
 		})
 		setDB(item)
+
+		Exchange(
+			{ title: title, content: content, favorited: favo },
+			`http://127.0.0.1:5000/toDo/cards/${id}`,
+			'PUT'
+		)
 	}
 
 	useEffect(() => {

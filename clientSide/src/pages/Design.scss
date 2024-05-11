@@ -118,7 +118,8 @@ body {
 		padding: $nPadding * 2;
 		// background-color: $vDark;
 		display: flex;
-		flex-direction: column;
+		flex-direction: column-reverse;
+		justify-content: flex-end;
 		gap: 8px;
 
 		.note {
@@ -127,15 +128,15 @@ body {
 			border-radius: $nRadius;
 			padding: $nPadding * 2;
 			display: grid;
-			grid-template-columns: 16px auto;
+			// grid-template-columns: 16px auto;
 			gap: 4px;
 
-			&::before {
-				content: '';
-				background-color: $vColor-2;
-				border-radius: $nRadius;
-				display: grid;
-			}
+			// &::before {
+			// 	content: '';
+			// 	background-color: $vColor-2;
+			// 	border-radius: $nRadius;
+			// 	display: grid;
+			// }
 			.colorNote {
 				background-color: $vColor-2;
 				border-radius: $nRadius;

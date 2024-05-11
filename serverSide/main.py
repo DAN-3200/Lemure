@@ -3,10 +3,9 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_restx import Api
-# flask_JWT - segurança no intercâmbio de dados (ajuda no autenticação de sessão para User)
+# flask_JWT - segurança no intercâmbio de dados (ajuda também na autenticação de sessão do User)
 # flask_migrate - versionamento do banco
 # Talvez eu aplique PANDAS aqui
-
 
 # - Definições do App
 app = Flask(__name__)
