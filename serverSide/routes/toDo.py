@@ -19,7 +19,8 @@ api.add_namespace(ns)
 # -- Rotas
 
 def created(array):
-    newCard = cards(array['title'], array['content'])
+    newCard = cards(array['title'], array['content'], array['favorited'])
+    print("S", array['favorited'])
     db.session.add(newCard)
     db.session.commit()
 

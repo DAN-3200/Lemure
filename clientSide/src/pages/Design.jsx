@@ -22,12 +22,12 @@ export default function Design() {
 }
 
 function MenuApp() {
-	const [DB, setDB, , setShow] = useContext(context)
+	const [DB, setDB, show , setShow] = useContext(context)
 
 	const createNote = async () => {
 		// Conexão com API
 		const valor = await Exchange(
-			{ title: '', content: '' },
+			{ title: '', content: '' , favorited : show ? false : true},
 			'http://127.0.0.1:5000/toDo/cards',
 			'POST'
 		)
@@ -37,14 +37,14 @@ function MenuApp() {
 	return (
 		<div className='menuApp'>
 			<button className='buttonMenu' onClick={() => setShow(true)}>
-				All
+				<span className={show && 'onAba'}>All</span>
 			</button>
 			<button className='buttonMenu' onClick={() => setShow(false)}>
-				Favorites
+				<span className={!show && 'onAba'}> Favorites </span>
 			</button>
 			<span className='nameApp'>LEMURE</span>
 			<button className='createNote' onClick={() => createNote()}>
-				<RiAddCircleLine /> criar nota
+				<RiAddCircleLine /> Create Note
 			</button>
 		</div>
 	)
@@ -84,6 +84,8 @@ function Note(props) {
 	const [content, setContent] = useState(props.item.content)
 	const [favo, setFavo] = useState(props.item.favorited)
 
+	
+
 	const Delete = (id) => {
 		const newDB = DB.filter((item) => item.id !== id)
 		setDB(newDB)
@@ -107,9 +109,9 @@ function Note(props) {
 		)
 	}
 
-	const ActionDelete = (target) =>{
+	const ActionDelete = (target) => {
 		console.log(target)
-	} 
+	}
 
 	useEffect(() => {
 		Update(props.item.id)
@@ -125,6 +127,8 @@ function Note(props) {
 					onChange={(e) => {
 						setTitle(e.target.value)
 					}}
+					spellCheck='false'
+					maxLength={64}
 				/>
 				<textarea
 					placeholder='Content...'
@@ -132,6 +136,7 @@ function Note(props) {
 					onChange={(e) => {
 						setContent(e.target.value)
 					}}
+					spellCheck='false'
 				/>
 				<div className='toolsNote'>
 					<button className='deleteNote' onClick={() => Delete(props.item.id)}>

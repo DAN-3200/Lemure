@@ -74,13 +74,17 @@ body {
 			color: $vWhite;
 			cursor: pointer;
 			transition: 0.3s;
+			display: grid;
+			place-items: center;
+			width: 64px;
 
-			&::after {
-				content: '';
-				background-color: #4169e1;
-				height: 4px;
-				width: 8px;
-				border-radius: $nRadius;
+			span{
+				font-weight: 480;
+
+			}
+
+			&.abaActive {
+				background-color: #343434;
 			}
 		}
 		button.createNote {
@@ -90,7 +94,7 @@ body {
 			color: $vWhite;
 			background: rgb(65, 105, 225);
 			border: none;
-			font-size: 12px;
+			font-size: 12.4px;
 			padding: 0px $nPadding * 2;
 			margin-left: auto;
 			white-space: nowrap;
@@ -104,12 +108,21 @@ body {
 			svg {
 				font-size: 16px;
 			}
+
+			&:active {
+				transform: scale(0.9);
+			}
 		}
 		span.nameApp {
 			@include font-grad($vColor-1, $vColor-2);
-			font-weight: 640;
-			margin: 0 auto;
+			font-weight: 560;
 			cursor: default;
+			margin-left: auto;
+			margin-right: 40px;
+		}
+		.onAba{
+			transition: 0.3s;
+			@include font-grad($vColor-2, $vColor-1);
 		}
 	}
 	.notesField {
@@ -136,14 +149,6 @@ body {
 			&.offNote {
 				animation: outNote 0.25s;
 			}
-
-			// grid-template-columns: 16px auto;
-			// &::before {
-			// 	content: '';
-			// 	background-color: $vColor-2;
-			// 	border-radius: $nRadius;
-			// 	display: grid;
-			// }
 			.colorNote {
 				background-color: $vColor-2;
 				border-radius: $nRadius;
@@ -187,12 +192,20 @@ body {
 					font-size: 12px;
 					padding: $nPadding;
 					color: $vWhite;
-					height: 32px;
+					height: 28px;
+
+					display: -webkit-box;
+					-webkit-line-clamp: 1;
+					-webkit-box-orient: vertical;
+					overflow: hidden;
+					font-size: 12px;
 
 					&:focus {
 						transition: 0.3s;
 						border: 2px solid $vColor-2;
 						height: 120px;
+						overflow: auto;
+						display: block;
 					}
 
 					&:not(:focus):hover {

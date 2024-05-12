@@ -11,10 +11,10 @@ class cards(db.Model):
     favorited = db.Column(db.Boolean, nullable=True)
     date = db.Column(db.Date, nullable=True)
 
-    def __init__(self, title, content):
+    def __init__(self, title, content, favorited):
         self.title = title
         self.content = content
-        self.favorited = 0
+        self.favorited = favorited
         self.date = datetime.datetime.now()
     
     def __str__(self):
