@@ -66,7 +66,7 @@ body {
 		padding: $nPadding * 2 $nPadding * 4;
 		align-items: center;
 		display: flex;
-		gap: 8px;
+		gap: 4px;
 
 		button.buttonMenu {
 			background-color: transparent;
@@ -76,11 +76,10 @@ body {
 			transition: 0.3s;
 			display: grid;
 			place-items: center;
-			width: 64px;
+			width: auto;
 
-			span{
+			span {
 				font-weight: 480;
-
 			}
 
 			&.abaActive {
@@ -113,6 +112,33 @@ body {
 				transform: scale(0.9);
 			}
 		}
+		input.dateInput {
+			margin-left: auto;
+			background: transparent;
+			border: 2px solid $vDark-off;
+			padding: 4px 8px;
+			border-radius: 4px;
+			color: silver;
+			position: relative;
+			right: 12px;
+			outline: none;
+			transition: 0.3s;
+
+			&:focus {
+				transition: 0.3s;
+				border: 2px solid $vColor-2;
+			}
+
+			&:not(:focus):hover {
+				transition: 0.3s;
+				border: 2px solid silver;
+			}
+
+			&::-webkit-calendar-picker-indicator {
+				cursor: pointer;
+				filter: brightness(100%) hue-rotate(0deg) invert(1);
+			}
+		}
 		span.nameApp {
 			@include font-grad($vColor-1, $vColor-2);
 			font-weight: 560;
@@ -120,7 +146,7 @@ body {
 			margin-left: auto;
 			margin-right: 40px;
 		}
-		.onAba{
+		.onAba {
 			transition: 0.3s;
 			@include font-grad($vColor-2, $vColor-1);
 		}
@@ -241,8 +267,24 @@ body {
 							color: rgb(252, 129, 129);
 						}
 					}
-					span {
+					input.validade {
+						color: rgb(114, 114, 114);
+						width: auto;
+						font-size: 10px;
+						transition: 0.3s;
+
+						&::-webkit-calendar-picker-indicator {
+							cursor: pointer;
+							filter: brightness(20%) hue-rotate(0deg) invert(1);
+						}
+						&:hover{
+							color: silver;
+							transition: 0.3s;
+						}
+					}
+					span.trueDate{
 						margin-left: auto;
+						color: rgb(116, 116, 116);
 					}
 				}
 			}

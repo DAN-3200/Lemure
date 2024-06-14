@@ -11,6 +11,7 @@ from main import (
 )
 from models.requestModel import (modelCard)
 from models.dbModel import (cards)
+import datetime
 
 # -- Sistema C.R.U.D
 ns = Namespace('toDo', description='CRUD')
@@ -28,8 +29,9 @@ def created(array):
         'id': newCard.id,
         'title' : newCard.title,
         'content': newCard.content,
-        'date': newCard.date.strftime('%d %B, %Y'),
-        'favorited': newCard.favorited
+        'date': newCard.date.strftime('%Y-%m-%d'),
+        'favorited': newCard.favorited,
+        'validity': newCard.date.strftime("%Y-%m-%d"),
     }
 
 def readed():
@@ -38,16 +40,18 @@ def readed():
         'id': card.id,
         'title': card.title,
         'content': card.content,
-        'date': card.date.strftime('%d %B, %Y'),
-        'favorited': card.favorited
+        'date': card.date.strftime("%Y-%m-%d"),
+        'favorited': card.favorited,
+        'validity': card.validity.strftime("%Y-%m-%d"),
     } for card in cards.query.all()]
 
 def updated(id, array):
-    print(array)
+    print("input: ", array['validity'])
     setCard = cards.query.get(id)
     setCard.title = array['title']
     setCard.content = array['content']
     setCard.favorited = array['favorited']
+    setCard.validity = datetime.datetime.strptime(array['validity'], '%Y-%m-%d')
 
     db.session.commit()
 

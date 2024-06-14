@@ -1,15 +1,17 @@
 import './Design.scss'
 import { RiAddCircleLine, RiDeleteBin2Line, RiStarLine } from 'react-icons/ri'
+import { FaCheckSquare } from 'react-icons/fa'
 import { useState, useEffect, useContext, createContext } from 'react'
 import { Exchange } from '../elements/fetch'
+import moment from 'moment'
 
 const context = createContext() // Criei o contexto
 
 export default function Design() {
 	const title = document.getElementsByTagName('title')[0]
-	title.innerHTML = 'App Note'
+	title.innerHTML = 'App Task'
 	const [DB, setDB] = useState([])
-	const [show, setShow] = useState(true)
+	const [show, setShow] = useState(1)
 
 	return (
 		<context.Provider value={[DB, setDB, show, setShow]}>
@@ -22,27 +24,36 @@ export default function Design() {
 }
 
 function MenuApp() {
-	const [DB, setDB, show , setShow] = useContext(context)
+	const [DB, setDB, show, setShow] = useContext(context)
 
 	const createNote = async () => {
 		// Conexão com API
 		const valor = await Exchange(
-			{ title: '', content: '' , favorited : show ? false : true},
+			{ title: '', content: '', favorited: show == 2 ? true : false },
 			'http://127.0.0.1:5000/toDo/cards',
 			'POST'
 		)
+		// Atualizar o Local DB dos dados salvados no serverSide
 		setDB([...DB, valor])
 	}
 
 	return (
 		<div className='menuApp'>
-			<button className='buttonMenu' onClick={() => setShow(true)}>
-				<span className={show && 'onAba'}>All</span>
+			<button className='buttonMenu' onClick={() => setShow(1)}>
+				<span className={`${show == 1 && 'onAba'}`}>Todos</span>
 			</button>
-			<button className='buttonMenu' onClick={() => setShow(false)}>
-				<span className={!show && 'onAba'}> Favorites </span>
+			<button className='buttonMenu' onClick={() => setShow(2)}>
+				<span className={`${show == 2 && 'onAba'}`}>Concluidos </span>
 			</button>
-			<span className='nameApp'>LEMURE</span>
+			<button className='buttonMenu' onClick={() => setShow(3)}>
+				<span className={`${show == 3 && 'onAba'}`}>Pendente </span>
+			</button>
+			<input
+				className='dateInput'
+				type='date'
+				onChange={(e) => setDay(e.target.value)}
+			/>
+			{/* <span className='nameApp'>LEMURE</span> */}
 			<button className='createNote' onClick={() => createNote()}>
 				<RiAddCircleLine /> Create Note
 			</button>
@@ -54,6 +65,7 @@ function NotesField() {
 	const [DB, setDB, show] = useContext(context)
 
 	useEffect(() => {
+		// Puxar todos as Tasks do ServerSide
 		try {
 			const x = async () => {
 				const resp = await (
@@ -67,13 +79,36 @@ function NotesField() {
 		}
 	}, [])
 
+	const showFilter = (Day, numb) => {
+		const filtro = 0
+		if(numb == 2){
+			filtro = true
+		} else {
+			filtro = false
+		}
+
+		if (moment(Day, 'YYYY-MM-DD').isValid()) {
+			return DB.filter((item) => item.validity === Day && item.favorited == filtro).map((item) => (
+				<Note item={item} key={item.id} />
+			))
+		} else {
+			return DB.map((item) => <Note item={item} key={item.id} />)
+		}
+	}
+
 	return (
 		<div className='notesField'>
-			{show
-				? DB.map((item) => <Note item={item} key={item.id} />)
-				: DB.filter((item) => true === item.favorited).map((item) => (
-						<Note item={item} key={item.id} />
-				  ))}
+			{show == 1 && DB.map((item) => <Note item={item} key={item.id} />)}
+
+			{show == 2 &&
+				DB.filter((item) => true === item.favorited).map((item) => (
+					<Note item={item} key={item.id} />
+				))}
+
+			{show == 3 &&
+				DB.filter((item) => false === item.favorited).map((item) => (
+					<Note item={item} key={item.id} />
+				))}
 		</div>
 	)
 }
@@ -82,9 +117,8 @@ function Note(props) {
 	const [DB, setDB] = useContext(context)
 	const [title, setTitle] = useState(props.item.title)
 	const [content, setContent] = useState(props.item.content)
+	const [validity, setValidity] = useState(props.item.validity)
 	const [favo, setFavo] = useState(props.item.favorited)
-
-	
 
 	const Delete = (id) => {
 		const newDB = DB.filter((item) => item.id !== id)
@@ -93,24 +127,28 @@ function Note(props) {
 	}
 
 	const Update = (id) => {
+		// Atualizar Local DB
 		const item = DB.map((task) => {
 			if (task.id === id) {
-				return { ...task, title: title, content: content, favorited: favo }
+				return {
+					...task,
+					title: title,
+					content: content,
+					favorited: favo,
+					validity: validity,
+				}
 			} else {
 				return task
 			}
 		})
 		setDB(item)
 
+		// Atualizar Server DB
 		Exchange(
-			{ title: title, content: content, favorited: favo },
+			{ title: title, content: content, favorited: favo, validity: validity },
 			`http://127.0.0.1:5000/toDo/cards/${id}`,
 			'PUT'
 		)
-	}
-
-	const ActionDelete = (target) => {
-		console.log(target)
 	}
 
 	useEffect(() => {
@@ -131,7 +169,7 @@ function Note(props) {
 					maxLength={64}
 				/>
 				<textarea
-					placeholder='Content...'
+					placeholder='Content'
 					value={content}
 					onChange={(e) => {
 						setContent(e.target.value)
@@ -142,10 +180,24 @@ function Note(props) {
 					<button className='deleteNote' onClick={() => Delete(props.item.id)}>
 						<RiDeleteBin2Line />
 					</button>
+					<input
+						type='date'
+						className='validade'
+						value={validity}
+						onChange={(e) => setValidity(e.target.value)}
+						onBlur={(e) => {
+							if (moment(e.target.value, 'YYYY-MM-DD').isValid()) {
+								Update(props.item.id)
+							}
+						}}
+						min={props.item.date}
+					/>
 					<button className='saveNote' onClick={() => setFavo(!favo)}>
-						<RiStarLine style={{ color: favo ? '#ffaa33' : '' }} />
+						<FaCheckSquare style={{ color: favo ? '#4eff98' : '' }} />
 					</button>
-					<span>{props.item.date}</span>
+					<span className='trueDate'>
+						{moment(props.item.date).format('DD MMM YYYY')}
+					</span>
 				</div>
 			</div>
 		</div>
